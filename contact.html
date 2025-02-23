@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Contact - L'Ingénieur de l'Intérieur</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="icon" href="images/iconsvg.svg" type="image/svg+xml">
+    <style>
+        #footer {
+            background-image: url('images/footer.jpg') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            position: relative !important;
+        }
+        
+        #footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(42, 40, 38, 0.85);
+            z-index: 1;
+        }
+        
+        #footer .copyright {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info {
+            background: rgba(250, 247, 242, 0.95);
+            padding: 2em;
+            border-left: 4px solid #C66B3E;
+            margin-bottom: 2em;
+        }
+        
+        #formStatus {
+            padding: 1em;
+            margin-top: 1em;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border-left: 4px solid #3c763d;
+        }
+        
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+            border-left: 4px solid #a94442;
+        }
+
+        #thankYouMessage {
+            display: none;
+        }
+
+        /* This ensures the iframe is completely hidden */
+        iframe[name="hidden_iframe"] {
+            display: none;
+            width: 0;
+            height: 0;
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="logo"><a href="index.html">L'Ingénieur de l'Intérieur</a></div>
+        <a href="#menu">Menu</a>
+    </header>
+
+    <!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="individuel.html">Mindfulness Coaching</a></li>
+            <li><a href="groupes.html">Ateliers Entreprise</a></li>
+            <li><a href="about.html">A Propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <div id="main">
+        <!-- Introduction Section -->
+        <section class="wrapper style2" style="background-image: url('images/contact/connexions.jpeg'); background-size: cover; background-position: center;">
+            <div class="inner">
+                <div class="contact-info" style="background: rgba(0, 0, 0, 0.45);">
+                    <h1>Prenons contact</h1>
+                    <p>Que ce soit pour un accompagnement individuel, des ateliers en entreprise ou simplement pour en savoir plus sur mon approche, je serai ravi d'échanger avec vous.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="wrapper style1">
+            <div class="inner">
+                <div class="flex flex-2">
+                    <div class="col col2">
+                        <div id="contactFormContainer">
+                            <!-- The actual form that submits to Google Forms -->
+                            <form id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfv90cJjerNqDmi_ikvMYen89LG61GoX5TlhNIc_Rx4XKsmvg/formResponse" method="POST" target="hidden_iframe" class="box">
+                                <div class="row uniform">
+                                    <div class="6u 12u$(xsmall)">
+                                        <input type="text" name="entry.839169066" id="name" placeholder="Votre nom" required>
+                                    </div>
+                                    <div class="6u$ 12u$(xsmall)">
+                                        <input type="email" name="entry.2094465393" id="email" placeholder="Votre email" required>
+                                    </div>
+                                    
+                                    <!-- Break -->
+                                    <div class="12u$">
+                                        <div class="select-wrapper">
+                                            <select name="entry.1505904572" id="category" required>
+                                                <option value="">- Type de demande -</option>
+                                                <option value="Coaching individuel">Coaching individuel</option>
+                                                <option value="Ateliers en entreprise">Ateliers en entreprise</option>
+                                                <option value="Demande d'information">Demande d'information</option>
+                                                <option value="Autre">Autre</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Break -->
+                                    <div class="12u$">
+                                        <textarea name="entry.888855052" id="message" placeholder="Votre message" rows="6" required></textarea>
+                                    </div>
+                                    
+                                    <!-- Break -->
+                                    <div class="12u$">
+                                        <div class="box" style="background-color: #FAF7F2;">
+                                            <input type="checkbox" id="human" name="entry.1053797634" value="Humain" required>
+                                            <label for="human">Je suis un humain et non un robot</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Break -->
+                                    <div class="12u$">
+                                        <ul class="actions">
+                                            <li><input type="submit" value="Envoyer le message" class="special" id="submitButton"></li>
+                                            <li><input type="reset" value="Réinitialiser" class="alt"></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div id="formStatus" class="12u$"></div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Thank you message (hidden initially) -->
+                        <div id="thankYouMessage" class="box" style="text-align: center;">
+                            <h2>Merci pour votre message!</h2>
+                            <p>J'ai bien reçu votre demande et je vous répondrai dans les meilleurs délais, généralement sous 24-48h.</p>
+                            <p>En attendant, n'hésitez pas à explorer les autres sections du site pour en savoir plus sur mes services.</p>
+                        </div>
+                        
+                        <!-- Hidden iframe to receive form response -->
+                        <iframe name="hidden_iframe" id="hidden_iframe"></iframe>
+                    </div>
+                    <div class="col col1">
+                        <div class="box">
+                            <h3>Autres moyens de contact</h3>
+                            <div class="image round fit" style="margin-bottom: 2em;">
+                                <img src="images/profil.png" alt="Contact">
+                            </div>
+                            <ul class="alt">
+                                <li>
+                                    <strong>📍 Localisation</strong><br>
+                                    Région lausannoise
+                                </li>
+                                <li>
+                                    <strong>📱 Réseaux sociaux</strong><br>
+                                    <a href="https://www.linkedin.com/in/amaury-dame-120269ab/" target="_blank" style="color: #C66B3E;">Retrouvez-moi sur LinkedIn</a>
+                                </li>
+                                <li>
+                                    <strong>⏰ Délai de réponse</strong><br>
+                                    Je réponds généralement sous 24-48h
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="copyright">
+            <ul class="icons">
+                <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                <li><a href="#" class="icon fa-snapchat"><span class="label">Snapchat</span></a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // This is the key part: we intercept form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            // Do not prevent default - let the form submit normally to Google
+            
+            // Disable submit button to prevent multiple submissions
+            document.getElementById('submitButton').disabled = true;
+            document.getElementById('submitButton').value = 'Envoi en cours...';
+            
+            // Set a timeout to show the thank you message
+            // This gives the form time to submit in the background
+            setTimeout(function() {
+                document.getElementById('contactFormContainer').style.display = 'none';
+                document.getElementById('thankYouMessage').style.display = 'block';
+                
+                // Scroll to thank you message
+                document.getElementById('thankYouMessage').scrollIntoView({ behavior: 'smooth' });
+            }, 1000); // Wait 1 second before showing thank you message
+        });
+    </script>
+</body>
+</html>
