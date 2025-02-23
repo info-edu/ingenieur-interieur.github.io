@@ -3660,7 +3660,7 @@
 		-webkit-justify-content: center;
 		-ms-justify-content: center;
 		justify-content: center;
-		background-image: url("../../images/banner.jpg");
+		background-image: url("../../images/banner.png");
 		background-position: center;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -3685,18 +3685,25 @@
 			opacity: 1;
 			position: relative;
 			z-index: 2;
+			padding: 20px;/* blur to make text more readyble */
+		    background: rgba(42, 40, 38, 0.3);
+		    backdrop-filter: blur(1px);
+		    border-radius: 10px;
 		}
 
 		#banner h1 {
 			font-size: 4em;
 			margin-bottom: .25em;
 			color: #FFF;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 		}
 
 		#banner p {
 			color: rgba(255, 255, 255, 0.85);
 			font-size: 1.75em;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 		}
+
 
 	@-moz-keyframes more {
 		0% {
