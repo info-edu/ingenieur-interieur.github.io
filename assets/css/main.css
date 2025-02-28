@@ -3703,6 +3703,12 @@
 			font-size: 1.75em;
 			text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
 		}
+		#banner li {
+			color: rgba(255, 255, 255, 0.85);
+			font-size: 1.35em;
+			text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+			list-style: none;
+		}
 
 
 	@-moz-keyframes more {
