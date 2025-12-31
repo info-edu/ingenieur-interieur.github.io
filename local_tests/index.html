@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crane Scale Pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #1a1a1a; color: white; }
+        #weight { font-size: 80px; margin: 20px; color: #00ff00; }
+        canvas { max-width: 90%; margin: auto; background: #222; }
+        button { padding: 15px 30px; font-size: 20px; border-radius: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Crane Scale Pro</h1>
+    <div id="weight">0.00 kg</div>
+    <button id="connect">Connect Scale</button>
+    <canvas id="graph"></canvas>
+
+    <script>
+        let chart;
+        const weightEl = document.getElementById('weight');
+        const ctx = document.getElementById('graph').getContext('2d');
+
+        // Initialize Audio Context for feedback
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function beep() {
+            const osc = audioCtx.createOscillator();
+            osc.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        // Initialize Chart
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: { labels: [], datasets: [{ label: 'Force (kg)', data: [], borderColor: '#00ff00' }] },
+            options: { animation: false, scales: { y: { min: 0 } } }
+        });
+
+        document.getElementById('connect').addEventListener('click', async () => {
+            try {
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [{ namePrefix: 'IF_B7' }],
+                    optionalServices: ['0000ffe0-0000-1000-8000-00805f9b34fb']
+                });
+
+                const server = await device.gatt.connect();
+                const service = await server.getPrimaryService('0000ffe0-0000-1000-8000-00805f9b34fb');
+                const char = await service.getCharacteristic('0000ffe1-0000-1000-8000-00805f9b34fb');
+
+                await char.startNotifications();
+                char.addEventListener('characteristicvaluechanged', (e) => {
+                    const view = e.target.value;
+                    // Our identified logic: Bytes 10 & 11 (offset by 0 or 1 depending on browser padding)
+                    // In WebBluetooth, the data is usually the pure payload starting from Index 0
+                    // For WH-C06, try bytes 1 and 2 of the notification payload
+                    const weight = ((view.getUint8(1) << 8) + view.getUint8(2)) / 100.0;
+                    
+                    weightEl.innerText = weight.toFixed(2) + " kg";
+                    
+                    // Update Graph
+                    chart.data.labels.push("");
+                    chart.data.datasets[0].data.push(weight);
+                    if (chart.data.dataPoints > 50) chart.data.labels.shift();
+                    chart.update();
+
+                    // Sound feedback if > 5kg (Target Example)
+                    if (weight > 5.0) beep();
+                });
+
+                document.getElementById('connect').innerText = "Connected";
+            } catch (err) {
+                console.error(err);
+                alert("Connection failed. Ensure GPS and Bluetooth are on.");
+            }
+        });
+    </script>
+</body>
+</html>
